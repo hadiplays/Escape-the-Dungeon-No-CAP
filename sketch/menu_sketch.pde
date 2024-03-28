@@ -1,39 +1,47 @@
+import gifAnimation.*;
+
 class Menu {
   
-  String title;
+  String title; // Menu title
   Button startButton;
   Button quitButton;
   Button modeButton;
   PFont font;
-  PImage bloodImg;
+  //PImage bloodImg;
+  Gif bloodAnimation; // Using gifAnimation library
+  PApplet parent; // Reference to the main PApplet instance
   
-  Menu(String title) {
-    this.title = title;
-    startButton = new Button("Start", width/2, height/2);
-    quitButton = new Button("Quit", width/2, height/2 + 60);
-    modeButton = new Button("Mode", width/2, height/2 + 120);
+  Menu(PApplet parent, String title) {
+    this.title = title; // Save title name to variable
+    startButton = new Button("Start", width/2, height/2, 100, 50);
+    quitButton = new Button("Quit", width/2, height/2 + 60, 100, 50);
+    modeButton = new Button("Mode", width/2, height/2 + 120, 100, 50);
     
     this.font = createFont("youmurdererbb.otf", 128);
     textFont(this.font);
     
-    bloodImg = loadImage("data/Images/blood_dripping.gif");
+    //bloodImg = loadImage("data/Images/blood_dripping.gif");
+    
+    this.parent = parent; // PApplet recieved from main file
+    bloodAnimation = new Gif(this.parent, "data/Images/blood_dripping.gif"); // Initialize .gif file
+    bloodAnimation.play(); // Play .gif file
   }
   
   void display() {
     background(0);
     
-    // TODO: get blood dripping gif to be animated
+    // TODO: get blood dripping gif to be animated..........DONE
     imageMode(CORNER);
-    image(bloodImg, 0, 0, width, height);
+    image(bloodAnimation, 0, 0, width, height);
     
     textAlign(CENTER, CENTER);
     textSize(100);
     fill(180, 25, 25);
     text(title, width/2, height/4);
     text("(No CAP)", width/2, 1.5*height/4);
-    startButton.display();
-    quitButton.display();
-    modeButton.display();
+    startButton.display(40);
+    quitButton.display(40);
+    modeButton.display(40);
   }
   
   void handleMouseClick() {
@@ -56,24 +64,26 @@ class Menu {
 
 class Button {
   
-  String label;
-  float x, y;
-  float w = 100;
-  float h = 50;
+  String label; // Button text
+  float x, y; // Button location (This is the middle of the button)
+  float w; // Width
+  float h; // Height
   
-  Button(String label, float x, float y) {
+  Button(String label, float x, float y, float w, float h) {
     this.label = label;
     this.x = x;
     this.y = y;
+    this.w = w;
+    this.h = h;
   }
   
-  void display() {
+  void display(int size) {
     stroke(0);
     fill(200);
     rectMode(CENTER);
     rect(x, y, w, h);
     fill(0);
-    textSize(40);
+    textSize(size);
     textAlign(CENTER, CENTER);
     text(label, x, y);
   }
@@ -83,20 +93,4 @@ class Button {
            mouseY > y - h/2 && mouseY < y + h/2 &&
            mousePressed;
   }
-}
-
-Menu menu;
-
-void setup() {
-  // TODO: Switch to using fullscreen for final gameplay purposes
-  size(800, 600);
-  //fullScreen();
-  background(0);
-  frameRate(30);
-  
-  menu = new Menu("Escape the Dungeon");
-}
-
-void draw() {
-  menu.display();
 }

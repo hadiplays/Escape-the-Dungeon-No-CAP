@@ -9,9 +9,11 @@ class Menu {
   PFont font;
   //PImage bloodImg;
   Gif bloodAnimation; // Using gifAnimation library
-  PApplet parent; // Reference to the main PApplet instance
+  PApplet parent = Sketch.this; // Reference to the main PApplet instance
   
-  Menu(PApplet parent, String title) {
+  boolean mode = false;
+  
+  Menu(String title) {
     this.title = title; // Save title name to variable
     startButton = new Button("Start", width/2, height/2, 100, 50);
     quitButton = new Button("Quit", width/2, height/2 + 60, 100, 50);
@@ -22,7 +24,6 @@ class Menu {
     
     //bloodImg = loadImage("data/Images/blood_dripping.gif");
     
-    this.parent = parent; // PApplet recieved from main file
     bloodAnimation = new Gif(this.parent, "data/Images/blood_dripping.gif"); // Initialize .gif file
     bloodAnimation.play(); // Play .gif file
   }
@@ -55,10 +56,15 @@ class Menu {
       println("Quitting the game...");
       exit();
     } else if (modeButton.isClicked()) {
+      mode = true;
       // Mode button clicked, go to mode selection screen
       // TODO: Add mode selection screen
       println("Going to mode selection screen...");
     }
+  }
+  
+  boolean getMode() {
+    return mode;
   }
 }
 

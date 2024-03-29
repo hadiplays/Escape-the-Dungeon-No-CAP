@@ -1,7 +1,8 @@
 import gifAnimation.*;
 
-Menu menu;
-ModeMenu modeMenu;
+//Menu menu;
+//ModeMenu modeMenu;
+Game game;
 
 void setup() {
   // TODO: Switch to using fullscreen for final gameplay purposes
@@ -10,11 +11,14 @@ void setup() {
   background(0);
   frameRate(30);
   
-  menu = new Menu(this, "Escape the Dungeon");
-  modeMenu = new ModeMenu(this, "Select A Mode");
+  //menu = new Menu("Escape the Dungeon");
+  //modeMenu = new ModeMenu(this, "Select A Mode");
+  game = new Game();
 }
 
 void draw() {
   //menu.display();
-  modeMenu.display();
+  //menu.handleMouseClick();
+  //modeMenu.display();
+  game.drawMenuInterface();
 }

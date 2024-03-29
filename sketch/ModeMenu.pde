@@ -9,9 +9,9 @@ class ModeMenu {
   PFont font;
   //PImage bloodImg;
   Gif bloodAnimation; // Using gifAnimation library
-  PApplet parent; // Reference to the main PApplet instance
+  PApplet parent = Sketch.this; // Reference to the main PApplet instance
   
-  ModeMenu(PApplet parent, String title) {
+  ModeMenu(String title) {
     this.title = title;
     
     // Initialize buttons
@@ -25,7 +25,6 @@ class ModeMenu {
     
     //bloodImg = loadImage("data/Images/blood_dripping.gif");
     
-    this.parent = parent; // PApplet recieved from main file
     bloodAnimation = new Gif(this.parent, "data/Images/blood_dripping.gif"); // Initialize .gif file
     bloodAnimation.play(); // Play .gif file
   }

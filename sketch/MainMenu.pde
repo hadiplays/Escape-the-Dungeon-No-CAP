@@ -1,28 +1,24 @@
 import gifAnimation.*;
 
-class Menu {
+class MainMenu {
   
   String title; // Menu title
   Button startButton;
   Button quitButton;
   Button modeButton;
   PFont font;
-  //PImage bloodImg;
   Gif bloodAnimation; // Using gifAnimation library
   PApplet parent = Sketch.this; // Reference to the main PApplet instance
   
   boolean mode = false;
   
-  Menu(String title) {
+  MainMenu(String title) {
     this.title = title; // Save title name to variable
-    startButton = new Button("Start", width/2, height/2, 100, 50);
-    quitButton = new Button("Quit", width/2, height/2 + 60, 100, 50);
-    modeButton = new Button("Mode", width/2, height/2 + 120, 100, 50);
+    startButton = new Button("Start", width/3, height/2 + 50, 180, 100);
+    quitButton = new Button("Quit", 2*width/3, height/2 + 50, 180, 100);
     
     this.font = createFont("youmurdererbb.otf", 128);
     textFont(this.font);
-    
-    //bloodImg = loadImage("data/Images/blood_dripping.gif");
     
     bloodAnimation = new Gif(this.parent, "data/Images/blood_dripping.gif"); // Initialize .gif file
     bloodAnimation.play(); // Play .gif file
@@ -40,26 +36,21 @@ class Menu {
     fill(180, 25, 25);
     text(title, width/2, height/4);
     text("(No CAP)", width/2, 1.5*height/4);
-    startButton.display(40);
-    quitButton.display(40);
-    modeButton.display(40);
+    startButton.display(60);
+    quitButton.display(60);
   }
   
   void handleMouseClick() {
     if (startButton.isClicked()) {
-      // Start button clicked, start the game
-      // TODO: Add game start logic here
+      mode = true;
+      // Start button clicked, go to mode selection screen
+      // TODO: Add mode selection screen
+      println("Going to mode selection screen...");
       println("Starting the game...");
     } else if (quitButton.isClicked()) {
       // Quit button clicked, quit the game
-      // TODO: Add game quit logic here
       println("Quitting the game...");
       exit();
-    } else if (modeButton.isClicked()) {
-      mode = true;
-      // Mode button clicked, go to mode selection screen
-      // TODO: Add mode selection screen
-      println("Going to mode selection screen...");
     }
   }
   

@@ -7,18 +7,18 @@ class Game {
     Map[] mapLevels; // Different maps for each level
     ArrayList<Chaser> chasers; // Different chasers saved in array
     User user; // The actual user
-    Menu menu = new Menu("Escape the Dungeon");; // Menu
+    MainMenu mainMenu = new MainMenu("Escape the Dungeon");; // Menu
     ModeMenu modeMenu = new ModeMenu("Select A Mode");;
 
     void drawMenuInterface() {
         // Implementation
-        menu.handleMouseClick();
+        mainMenu.handleMouseClick();
         
-        if (menu.getMode()) {
+        if (mainMenu.getMode()) {
           modeMenu.display();
         }
         else {
-          menu.display();
+          mainMenu.display();
         }
     }
 

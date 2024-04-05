@@ -6,6 +6,7 @@ class ModeMenu {
   Button easyButton;
   Button mediumButton;
   Button hardButton;
+  int mode; // 1 = easy, 2 = medium, 3 = hard
   PFont font;
   //PImage bloodImg;
   Gif bloodAnimation; // Using gifAnimation library
@@ -13,6 +14,7 @@ class ModeMenu {
   
   ModeMenu(String title) {
     this.title = title;
+    this.mode = 0;
     
     // Initialize buttons
     easyButton = new Button("Easy", width/4, height/2 + 50, 180, 100);
@@ -49,17 +51,16 @@ class ModeMenu {
   void handleMouseClick() {
     if (easyButton.isClicked()) {
       // Change mode to easy
-      // TODO: Add game start logic here
       println("Easy Mode");
+      mode = 1;
     } else if (mediumButton.isClicked()) {
       // Change mode to medium
-      // TODO: Add game quit logic here
       println("Medium Mode");
-      exit();
+      mode = 2;
     } else if (hardButton.isClicked()) {
       // Change mode to hard
-      // TODO: Add mode selection screen
       println("Hard Mode");
+      mode = 3;
     }
   }
 }

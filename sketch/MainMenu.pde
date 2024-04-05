@@ -25,6 +25,7 @@ class MainMenu {
   }
   
   void display() {
+    handleMouseClick();
     background(0);
     
     // TODO: get blood dripping gif to be animated..........DONE

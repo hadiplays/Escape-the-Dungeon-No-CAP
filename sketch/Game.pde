@@ -17,14 +17,14 @@ class Game {
     void drawMenuInterface() {
         // Implementation
         
-        if (mainMenu.getIsStarted()) {
+        if (mainMenu.getIsStarted()) { //goes to the modeMenu
           modeMenu.display();
-          modeMenu.handleMouseClick();
-          modeDifficultyAssignment();
+          //modeMenu.handleMouseClick();
+          //modeDifficultyAssignment();
         }
-        else {
+        else { //stays in the mainMenu
           mainMenu.display();
-          mainMenu.handleMouseClick();
+          //mainMenu.handleMouseClick();
         }
     }
 

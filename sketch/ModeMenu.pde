@@ -11,6 +11,8 @@ class ModeMenu {
   //PImage bloodImg;
   Gif bloodAnimation; // Using gifAnimation library
   PApplet parent = Sketch.this; // Reference to the main PApplet instance
+  boolean gameStart = false;
+  Map map = new Map();
   
   ModeMenu(String title) {
     this.title = title;
@@ -32,20 +34,25 @@ class ModeMenu {
   }
   
   void display() {
-    background(0);
-    
-    // TODO: get blood dripping gif to be animated..........DONE
-    imageMode(CORNER);
-    image(bloodAnimation, 0, 0, width, height);
-    
-    textAlign(CENTER, CENTER);
-    textSize(100);
-    fill(180, 25, 25);
-    text(title, width/2, height/4);
-    
-    easyButton.display(60);
-    mediumButton.display(60);
-    hardButton.display(60);
+    if(!gameStart){
+        handleMouseClick();
+        background(0);
+        
+        // TODO: get blood dripping gif to be animated..........DONE
+        imageMode(CORNER);
+        image(bloodAnimation, 0, 0, width, height);
+        
+        textAlign(CENTER, CENTER);
+        textSize(100);
+        fill(180, 25, 25);
+        text(title, width/2, height/4);
+        
+        easyButton.display(60);
+        mediumButton.display(60);
+        hardButton.display(60);
+    }else{
+        map.drawMap();
+    }
   }
   
   void handleMouseClick() {
@@ -53,6 +60,7 @@ class ModeMenu {
       // Change mode to easy
       println("Easy Mode");
       mode = 1;
+      gameStart = true;
     } else if (mediumButton.isClicked()) {
       // Change mode to medium
       println("Medium Mode");

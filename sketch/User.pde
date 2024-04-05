@@ -9,15 +9,28 @@ class User {
     int fieldOfView; // User FOV; changes depending on # of flashlight the user has gotten
     int numKeys; // Number of keys user has
     boolean openDoor; // If numKeys = a certain number, this changes to true
+    PImage sprite;
 
     // Constructor
-    User(float speed, int difficulty, float xPos, float yPos, int flashlight, int fieldOfView, boolean openDoor) {
-        this.speed = speed;
-        this.difficulty = difficulty;
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.flashlight = flashlight;
-        this.fieldOfView = fieldOfView;
-        this.openDoor =openDoor;
+    //User(float speed, int difficulty, float xPos, float yPos, int flashlight, int fieldOfView, boolean openDoor) {
+    //    this.speed = speed;
+    //    this.difficulty = difficulty;
+    //    this.xPos = xPos;
+    //    this.yPos = yPos;
+    //    this.flashlight = flashlight;
+    //    this.fieldOfView = fieldOfView;
+    //    this.openDoor = openDoor;
+        
+    //    this.sprite = loadImage("data/Images/bongocat.png");
+    //}
+    
+    User() {
+        this.sprite = loadImage("data/Images/bongocat.png");
     }
+    
+    
+    void draw() {
+      image(sprite, mouseX, mouseY);
+    }
+    
 }

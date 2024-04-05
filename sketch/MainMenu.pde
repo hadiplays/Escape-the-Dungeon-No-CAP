@@ -10,7 +10,7 @@ class MainMenu {
   Gif bloodAnimation; // Using gifAnimation library
   PApplet parent = Sketch.this; // Reference to the main PApplet instance
   
-  boolean mode = false;
+  boolean isStarted = false;
   
   MainMenu(String title) {
     this.title = title; // Save title name to variable
@@ -42,7 +42,7 @@ class MainMenu {
   
   void handleMouseClick() {
     if (startButton.isClicked()) {
-      mode = true;
+      isStarted = true;
       // Start button clicked, go to mode selection screen
       // TODO: Add mode selection screen
       println("Going to mode selection screen...");
@@ -54,8 +54,8 @@ class MainMenu {
     }
   }
   
-  boolean getMode() {
-    return mode;
+  boolean getIsStarted() {
+    return isStarted;
   }
 }
 

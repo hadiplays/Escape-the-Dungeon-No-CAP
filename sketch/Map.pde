@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+
+
 class Map {
     int flashlight; // Number of flashlights user has
     float[] flashlightPositions; // Position of each flashlight on the map; a float array containing pairs, each having an x and y position 
@@ -8,7 +10,12 @@ class Map {
     float[] keyPos; // Position of each key on the map; a float array containing pairs, each having an x and y position 
     int difficulty; // Map difficulty; used to alter other variables
     int mapDesign; // Design of the map depending on which level the user is at
+    
 
+
+    Map(){
+      mapDesign = 1;
+    }
     // Constructor
     Map(int flashlight, float[] flashlightPositions, int numKeys, boolean openDoor, float[] keyPos, int difficulty, int mapDesign) {
         this.flashlight = flashlight;
@@ -18,5 +25,12 @@ class Map {
         this.keyPos = keyPos;
         this.difficulty = difficulty;
         this.mapDesign = mapDesign;
+    }
+    
+    void drawMap(){
+      
+      if(mapDesign == 1){
+        background(255);
+      }
     }
 }

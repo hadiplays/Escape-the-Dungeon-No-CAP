@@ -65,4 +65,12 @@ class User {
       }
     }
     
+    float[] getPosition() {
+      float[] position = new float[2]; // Initialize a float array of size 2
+      position[0] = xPos; // Assign xPos to the first element
+      position[1] = yPos; // Assign yPos to the second element
+      return position; // Return the initialized array
+    }
+
+    
 }

@@ -11,8 +11,6 @@ class Map {
     int difficulty; // Map difficulty; used to alter other variables
     int mapDesign; // Design of the map depending on which level the user is at
     
-    float[] userPosition = {width/2, height/2}; // temporary user position
-    Chaser chaser = new Chaser(1, 1, 10, 10, userPosition);
 
 
     Map(){
@@ -33,8 +31,6 @@ class Map {
       
       if(mapDesign == 1){
         background(255);
-        chaser.chaseUser(userPosition);
-        chaser.drawChaser();
       }
     }
 }

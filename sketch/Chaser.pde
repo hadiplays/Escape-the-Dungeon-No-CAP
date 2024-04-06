@@ -12,8 +12,8 @@ class Chaser {
     PImage chaserImage; // Image for the chaser
 
     // Constructor
-    Chaser(float speed, int difficulty, float xPos, float yPos, float[] userPos) {
-        this.speed = speed;
+    Chaser(int difficulty, float xPos, float yPos, float[] userPos) {
+        this.speed = 1;
         this.difficulty = difficulty;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -22,8 +22,20 @@ class Chaser {
         this.chaserImage.resize(50, 50);
     }
     
-    void speedChange(float s){
-        this.speed = s;
+    void speedChange(int level){
+        this.difficulty = level;
+        if(level == 1){ // easy mode
+          this.speed = 1;
+        }
+        else if(level == 2){ // medium mode
+          this.speed = 2;
+        }
+        else if(level == 3){ // hard
+          this.speed = 3;
+        }
+        else{
+          this.speed = 0.5;
+        }
     }
     
     void drawChaser(){
@@ -32,9 +44,11 @@ class Chaser {
     
     
     void chaseUser(float[] userPos) {
-        println(userPos[0]);
-        println(userPos[1]);
-        println(speed);
+        //println("User Position");
+        //println(userPos[0]);
+        //println(userPos[1]);
+        //println(speed);
+        speedChange(this.difficulty);
         
         // Calculate the distance between chaser and user in x and y axes
         float distX = userPos[0] - xPos;
@@ -43,20 +57,22 @@ class Chaser {
         // Calculate the angle between chaser and user
         float angle = atan2(distY, distX);
         
-        println(angle);
+        //println(angle);
         
         // Calculate the movement in x and y directions
-        float moveX = speed * cos(angle);
-        float moveY = speed * sin(angle);
-        println(moveX);
-        println(moveY);
+        float moveX = this.speed * cos(angle);
+        float moveY = this.speed * sin(angle);
+        println("SPEEEDDDDD");
+        println(difficulty);
+        println(speed);
+        //println(moveY);
         
         // Update chaser's position
         this.xPos += moveX;
         this.yPos += moveY;
         
         // Print the new position (you can remove this print statement if not needed)
-        System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
+        //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
     }
 
 }

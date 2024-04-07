@@ -9,8 +9,7 @@ void setup() {
   size(800, 600);
   //fullScreen();
   background(0);
-  frameRate(30);
-  
+  frameRate(30);  
   //menu = new Menu("Escape the Dungeon");
   //modeMenu = new ModeMenu(this, "Select A Mode");
   game = new Game();

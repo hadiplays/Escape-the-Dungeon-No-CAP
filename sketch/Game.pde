@@ -97,12 +97,22 @@ class Game {
     
     void startGame() {
       // TODO: Start game logic (draw user, chasers, map)
+        //map.drawMap();
+        //user.drawUser();
+        ////userPosition = user.getPosition();
+        //userPosition = new float[]{user.xPos, user.yPos};
+        //chaser.chaseUser(userPosition);
+        //chaser.drawChaser();
+        //println("GAME LOOP STARTED");
+        //gameOver();
+        
         map.drawMap();
         user.drawUser();
         //userPosition = user.getPosition();
-        userPosition = new float[]{user.xPos, user.yPos};
-        chaser.chaseUser(userPosition);
+        userPosition = user.moveNew();
+        chaser.chaseUserNEW(userPosition); 
         chaser.drawChaser();
+        map.getUserPos(userPosition);
         println("GAME LOOP STARTED");
         gameOver();
     }

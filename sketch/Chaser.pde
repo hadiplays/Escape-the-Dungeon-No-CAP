@@ -81,4 +81,40 @@ class Chaser {
       position[1] = yPos; // Assign yPos to the second element
       return position; // Return the initialized array
     }
+    
+/********************************TESTING SMTHN***************************************/
+    
+    // This function is similar to the chaseUser() function except
+    // it moves the chaser's position based on the user.
+    void chaseUserNEW(float[] move) {
+        //println("User Position");
+        //println(userPos[0]);
+        //println(userPos[1]);
+        //println(speed);
+        speedChange(this.difficulty);
+        
+        // Calculate the distance between chaser and user in x and y axes
+        float distX = width/2 - xPos;
+        float distY = height/2 - yPos;
+        
+        // Calculate the angle between chaser and user
+        float angle = atan2(distY, distX);
+        
+        //println(angle);
+        
+        // Calculate the movement in x and y directions
+        float moveX = this.speed * cos(angle);
+        float moveY = this.speed * sin(angle);
+        println("SPEEEDDDDD");
+        println(difficulty);
+        println(speed);
+        //println(moveY);
+        
+        // Update chaser's position
+        this.xPos += moveX + move[1];
+        this.yPos += moveY + move[0];
+        
+        // Print the new position (you can remove this print statement if not needed)
+        //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
+    }
 }

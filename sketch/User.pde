@@ -34,8 +34,8 @@ class User {
     }
     
     void drawUser() {
-      background(0); // TODO: delete this line once draw map is done
-      move();
+      //background(0); // TODO: delete this line once draw map is done
+      //move();
       image(sprite, xPos, yPos, 50, 50);
     }
     
@@ -70,6 +70,35 @@ class User {
       position[0] = xPos; // Assign xPos to the first element
       position[1] = yPos; // Assign yPos to the second element
       return position; // Return the initialized array
+    }
+    
+/********************************TESTING STUFF*****************************************/
+    // This function basically sends the amount of spaces you want every other
+    // object around the user to move.
+    // This makes the allusion of the user moving throughout the map
+    float[] moveNew() { //first number up/down, second number right/left
+    
+      float[] arr = new float[2];
+      
+      if (keyPressed) {
+        if (keyCode == RIGHT) {
+          arr[0] = 0;
+          arr[1] = -1 * speed;
+        }
+        else if (keyCode == LEFT) {
+          arr[0] = 0;
+          arr[1] = speed;
+        }
+        else if (keyCode == UP) {
+          arr[0] = speed;
+          arr[1] = 0;
+        }
+        else if (keyCode == DOWN) {
+          arr[0] = -1 * speed;
+          arr[1] = 0;
+        }
+      }
+      return arr;
     }
 
     

@@ -10,6 +10,7 @@ class Map {
     float[] keyPos; // Position of each key on the map; a float array containing pairs, each having an x and y position 
     int difficulty; // Map difficulty; used to alter other variables
     int mapDesign; // Design of the map depending on which level the user is at
+    float[] userPos = {0, 0}; // Used to create map moving allusion
     
 
 
@@ -30,7 +31,21 @@ class Map {
     void drawMap(){
       
       if(mapDesign == 1){
-        background(255);
+        push();
+        background(0);
+        fill(255);
+        rectMode(CORNER);
+        noStroke();
+        rect(-100 + userPos[1],-200 + userPos[0],1000,100);
+        rect(-100 + userPos[1],800 + userPos[0],1000,100);
+        rect(-100 + userPos[1],-200 + userPos[0],100,1000);
+        rect(800 + userPos[1],-200 + userPos[0],100,1000);
+        pop();
       }
+    }
+    
+    void getUserPos(float[] userPos) {
+      this.userPos[0] += userPos[0];
+      this.userPos[1] += userPos[1];
     }
 }

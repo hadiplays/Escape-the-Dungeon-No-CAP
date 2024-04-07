@@ -11,11 +11,21 @@ class Map {
     int difficulty; // Map difficulty; used to alter other variables
     int mapDesign; // Design of the map depending on which level the user is at
     float[] userPos = {0, 0}; // Used to create map moving allusion
-    
+    float[][] mapBorders = {
+        {-100, -200},
+        {-100, 800},
+        {-100, -200},
+        {800, -200}
+    };
+    int[][] obstacles = new int[10][2];
 
 
     Map(){
       mapDesign = 1;
+      for (int i = 0; i < obstacles.length; i++) {
+        obstacles[i][0] = int(random(10, 501));
+        obstacles[i][1] = int(random(10, 501));
+      }
     }
     // Constructor
     Map(int flashlight, float[] flashlightPositions, int numKeys, boolean openDoor, float[] keyPos, int difficulty, int mapDesign) {
@@ -26,6 +36,11 @@ class Map {
         this.keyPos = keyPos;
         this.difficulty = difficulty;
         this.mapDesign = mapDesign;
+        
+        for (int i = 0; i < obstacles.length; i++) {
+          obstacles[i][0] = int(random(10, 501));
+          obstacles[i][1] = int(random(10, 501));
+        }
     }
     
     void drawMap(){
@@ -40,6 +55,11 @@ class Map {
         rect(-100 + userPos[1],800 + userPos[0],1000,100);
         rect(-100 + userPos[1],-200 + userPos[0],100,1000);
         rect(800 + userPos[1],-200 + userPos[0],100,1000);
+        
+        for (int i = 0; i < obstacles.length; i++) {
+          rect(obstacles[i][0] + userPos[1], obstacles[i][1] + userPos[0], 50, 50);
+        }
+
         pop();
       }
     }

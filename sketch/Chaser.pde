@@ -43,37 +43,37 @@ class Chaser {
     }
     
     
-    void chaseUser(float[] userPos) {
-        //println("User Position");
-        //println(userPos[0]);
-        //println(userPos[1]);
-        //println(speed);
-        speedChange(this.difficulty);
+    //void chaseUser(float[] userPos) {
+    //    //println("User Position");
+    //    //println(userPos[0]);
+    //    //println(userPos[1]);
+    //    //println(speed);
+    //    speedChange(this.difficulty);
         
-        // Calculate the distance between chaser and user in x and y axes
-        float distX = userPos[0] - xPos;
-        float distY = userPos[1] - yPos;
+    //    // Calculate the distance between chaser and user in x and y axes
+    //    float distX = userPos[0] - xPos;
+    //    float distY = userPos[1] - yPos;
         
-        // Calculate the angle between chaser and user
-        float angle = atan2(distY, distX);
+    //    // Calculate the angle between chaser and user
+    //    float angle = atan2(distY, distX);
         
-        //println(angle);
+    //    //println(angle);
         
-        // Calculate the movement in x and y directions
-        float moveX = this.speed * cos(angle);
-        float moveY = this.speed * sin(angle);
-        println("SPEEEDDDDD");
-        println(difficulty);
-        println(speed);
-        //println(moveY);
+    //    // Calculate the movement in x and y directions
+    //    float moveX = this.speed * cos(angle);
+    //    float moveY = this.speed * sin(angle);
+    //    println("SPEEEDDDDD");
+    //    println(difficulty);
+    //    println(speed);
+    //    //println(moveY);
         
-        // Update chaser's position
-        this.xPos += moveX;
-        this.yPos += moveY;
+    //    // Update chaser's position
+    //    this.xPos += moveX;
+    //    this.yPos += moveY;
         
-        // Print the new position (you can remove this print statement if not needed)
-        //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
-    }
+    //    // Print the new position (you can remove this print statement if not needed)
+    //    //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
+    //}
 
     float[] getPosition() {
       float[] position = new float[2]; // Initialize a float array of size 2

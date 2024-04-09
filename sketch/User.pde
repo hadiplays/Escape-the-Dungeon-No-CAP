@@ -39,31 +39,31 @@ class User {
       image(sprite, xPos, yPos, 50, 50);
     }
     
-    void move() {
-      // move according to key press and check for map bounds
-      if (keyPressed) {
-        if (keyCode == RIGHT) {
-          if (xPos < width-50) {
-            xPos += speed;
-          }
-        }
-        else if (keyCode == LEFT) {
-          if (xPos > 0) {
-            xPos -= speed;
-          }
-        }
-        else if (keyCode == UP) {
-          if (yPos > 0) {
-            yPos -= speed;
-          }
-        }
-        else if (keyCode == DOWN) {
-          if (yPos < height-50) {
-            yPos += speed;
-          }
-        }
-      }
-    }
+    //void move() {
+    //  // move according to key press and check for map bounds
+    //  if (keyPressed) {
+    //    if (keyCode == RIGHT) {
+    //      if (xPos < width-50) {
+    //        xPos += speed;
+    //      }
+    //    }
+    //    else if (keyCode == LEFT) {
+    //      if (xPos > 0) {
+    //        xPos -= speed;
+    //      }
+    //    }
+    //    else if (keyCode == UP) {
+    //      if (yPos > 0) {
+    //        yPos -= speed;
+    //      }
+    //    }
+    //    else if (keyCode == DOWN) {
+    //      if (yPos < height-50) {
+    //        yPos += speed;
+    //      }
+    //    }
+    //  }
+    //}
     
     float[] getPosition() {
       float[] position = new float[2]; // Initialize a float array of size 2

@@ -61,10 +61,17 @@ class Map {
   
   void initializeObstacles() {
       for (int i = 0; i < obstacles.length; i++) {
-          obstacles[i][0] = (int) random(-coordinateOne + 50, coordinateTwo - 100); // Adjusted to fit within map borders
-          obstacles[i][1] = (int) random(-coordinateOne + 50, coordinateTwo - 100); // Adjusted to fit within map borders
+          int randomX, randomY;
+          do {
+              randomX = (int) random(-coordinateOne + 50, coordinateTwo - 100);
+              randomY = (int) random(-coordinateOne + 50, coordinateTwo - 100);
+          } while (!(randomX < 350 || randomX > 650) || !(randomY < 350 || randomY > 650));
+          obstacles[i][0] = randomX;
+          obstacles[i][1] = randomY;
       }
   }
+
+
   
   void initializeKeys() {
       for (int i = 0; i < this.keyPos.length; i++) {
@@ -72,13 +79,14 @@ class Map {
               float keyX = random(-coordinateOne + 100, coordinateTwo - 100); // Adjusted to fit within map borders
               float keyY = random(-coordinateOne + 100, coordinateTwo - 100); // Adjusted to fit within map borders
               // Adjust key position to ensure it doesn't overlap with obstacles
-              if (!checkOverlap(keyX, keyY)) {
+              if (!checkOverlap(keyX, keyY) && (keyX < 350 || keyX > 650) && (keyY < 350 || keyY > 650)) {
                   this.keyPos[i][0] = keyX;
                   this.keyPos[i][1] = keyY;
               }
           } while (this.keyPos[i][0] == 0 && this.keyPos[i][1] == 0); // Ensure key position is set
       }
   }
+
 
 
     // Constructor..........NOT BEING USED CURRENTLY; SHOULD BE USED THOUGH

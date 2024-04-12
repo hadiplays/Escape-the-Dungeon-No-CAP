@@ -18,7 +18,7 @@ class User {
       this.position = new float[2];
       this.xPos = width/2;
       this.yPos = height/2;
-      this.speed = 5;
+      this.speed = 10;
       this.sprite = loadImage("data/Images/bongocat.png");
     }
     

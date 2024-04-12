@@ -26,13 +26,13 @@ class Chaser {
     void speedChange(int level){
         this.difficulty = level;
         if(level == 1){ // easy mode
-          this.speed = 1;
+          this.speed = 4;
         }
         else if(level == 2){ // medium mode
-          this.speed = 2;
+          this.speed = 6;
         }
         else if(level == 3){ // hard
-          this.speed = 3;
+          this.speed = 8;
         }
         else{
           this.speed = 0.5;

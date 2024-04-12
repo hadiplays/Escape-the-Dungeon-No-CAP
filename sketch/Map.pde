@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-
+import processing.core.PApplet;
+import processing.core.PImage;
 
 
 class Map {
@@ -19,6 +20,13 @@ class Map {
     int[][] obstacles = new int[25][2];
     int keyWidth = 50; // Width of the key rectangle
     int keyHeight = 50; // Height of the key rectangle
+    
+    float[][] flashlightPos = new float[2][2]; // Position of each flashlight on the map; a float array containing pairs, each having an x and y position 
+    int flashlightWidth = 50; // Width of the flashlight rectangle
+    int flashlightHeight = 50; // Height of the flashlight rectangle
+    
+    PImage keyImage;
+    PImage flashlightImage;
 
     Map() {
         mapDesign = 1;
@@ -26,8 +34,11 @@ class Map {
 
         // Initialize the array
         this.keyPos = new float[3][2];
+        keyImage = loadImage("data/Images/key.png"); 
+        flashlightImage = loadImage("data/Images/flashlight.png");
 
         initializeKeys();
+        initializeFlashlights();
     }
 
     boolean checkOverlap(float keyX, float keyY) {
@@ -57,6 +68,21 @@ class Map {
       }
       return false; // No overlap detected
   }
+  
+  boolean checkKeyOverlap(float x, float y) {
+    for (int i = 0; i < keyPos.length; i++) {
+        float keyLeft = keyPos[i][0];
+        float keyRight = keyPos[i][0] + keyWidth;
+        float keyTop = keyPos[i][1];
+        float keyBottom = keyPos[i][1] + keyHeight;
+
+        // Check if the given position overlaps with any key
+        if (x + 25 >= keyLeft && x <= keyRight && y + 25 >= keyTop && y <= keyBottom) {
+            return true; // Overlap detected
+        }
+    }
+    return false; // No overlap detected
+  }
 
   
   void initializeObstacles() {
@@ -85,6 +111,23 @@ class Map {
               }
           } while (this.keyPos[i][0] == 0 && this.keyPos[i][1] == 0); // Ensure key position is set
       }
+  }
+  
+  void initializeFlashlights() {
+    
+
+    // Initialize flashlights
+    for (int i = 0; i < 2; i++) {
+        do {
+            float flashlightX = random(-coordinateOne + 100, coordinateTwo - 100);
+            float flashlightY = random(-coordinateOne + 100, coordinateTwo - 100);
+            if (!checkOverlap(flashlightX, flashlightY) && !checkKeyOverlap(flashlightX, flashlightY)) {
+                // Check for overlap with obstacles and keys
+                    this.flashlightPos[i][0] = flashlightX;
+                    this.flashlightPos[i][1] = flashlightY;
+            }
+        } while (this.flashlightPos[i][0] == 0 && this.flashlightPos[i][1] == 0); // Ensure flashlight position is set
+    }
   }
 
 
@@ -124,7 +167,13 @@ class Map {
         
         fill(255,255,0);
         for (int i = 0; i < keyPos.length; i++) {
-          rect(keyPos[i][0] + userPos[1], keyPos[i][1] + userPos[0], 50, 50);
+            image(keyImage, keyPos[i][0] + userPos[1], keyPos[i][1] + userPos[0], keyWidth, keyHeight);
+        }
+        
+        // Change the fill color to red for flashlights
+        fill(255, 0, 0); // Red color
+        for (int i = 0; i < flashlightPos.length; i++) {
+            image(flashlightImage, flashlightPos[i][0] + userPos[1], flashlightPos[i][1] + userPos[0], flashlightWidth, flashlightHeight);
         }
 
         pop();

@@ -101,7 +101,7 @@ class Game {
       
       float distance = sqrt(pow((chaserPosArr[0] - userPosArr[0]), 2) + pow((chaserPosArr[1] - userPosArr[1]), 2));
       println(distance);
-      if (distance <= 50) difficulty = -1; //gameOver
+      if (distance <= 100) difficulty = -1; //gameOver
     }
     
     int getDifficulty () {return this.difficulty;}

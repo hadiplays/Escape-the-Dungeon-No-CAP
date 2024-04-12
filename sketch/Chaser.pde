@@ -10,6 +10,7 @@ class Chaser {
     float[] userPos; // Two sized float array containing the current x and y position of the user
     PApplet parent = Sketch.this; // Reference to the main PApplet instance
     PImage chaserImage; // Image for the chaser
+    int chaserSize = 100; //50
 
     // Constructor
     Chaser(int difficulty, float xPos, float yPos, float[] userPos) {
@@ -19,19 +20,19 @@ class Chaser {
         this.yPos = yPos;
         this.userPos = userPos;
         this.chaserImage = this.parent.loadImage("data/Images/ronny.png");
-        this.chaserImage.resize(50, 50);
+        this.chaserImage.resize(chaserSize, chaserSize);
     }
     
     void speedChange(int level){
         this.difficulty = level;
         if(level == 1){ // easy mode
-          this.speed = 1;
+          this.speed = 4;
         }
         else if(level == 2){ // medium mode
-          this.speed = 2;
+          this.speed = 6;
         }
         else if(level == 3){ // hard
-          this.speed = 3;
+          this.speed = 8;
         }
         else{
           this.speed = 0.5;
@@ -60,8 +61,8 @@ class Chaser {
     //    //println(angle);
         
     // Calculate the movement in x and y directions
-    float moveX = this.speed * cos(angle);
-    float moveY = this.speed * sin(angle);
+    //float moveX = this.speed * cos(angle);
+    //float moveY = this.speed * sin(angle);
     //println("SPEEEDDDDD");
     //println(difficulty);
     //println(speed);

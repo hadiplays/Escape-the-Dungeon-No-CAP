@@ -11,18 +11,19 @@ class User {
     int numKeys; // Number of keys user has
     boolean openDoor; // If numKeys = a certain number, this changes to true
     PImage sprite;
+    int userSize = 100; //50
 
     // Constructor
     User() {
       this.position = new float[2];
       this.xPos = width/2;
       this.yPos = height/2;
-      this.speed = 5;
+      this.speed = 10;
       this.sprite = loadImage("data/Images/bongocat.png");
     }
     
     void drawUser() {
-      image(sprite, xPos, yPos, 50, 50);
+      image(sprite, xPos, yPos, userSize, userSize);
     }
     
     float[] getPosition() {

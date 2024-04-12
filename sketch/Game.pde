@@ -86,6 +86,7 @@ class Game {
         // Need to update this user position
         userPosition = user.position;
         chaser.chaseUserNEW(userPosition); 
+        
         chaser.drawChaser();
         map.moveMap(userPosition);
         checkGameOver();
@@ -103,6 +104,7 @@ class Game {
       println(distance);
       if (distance <= 100) difficulty = -1; //gameOver
     }
+    
     
     int getDifficulty () {return this.difficulty;}
     

@@ -14,8 +14,8 @@ class MainMenu {
   
   MainMenu(String title) {
     this.title = title; // Save title name to variable
-    startButton = new Button("Start", width/3, height/2 + 50, 180, 100);
-    quitButton = new Button("Quit", 2*width/3, height/2 + 50, 180, 100);
+    startButton = new Button("Start", width/3, height/4 * 3, 180, 100);
+    quitButton = new Button("Quit", 2*width/3, height/4 * 3, 180, 100);
     
     this.font = createFont("youmurdererbb.otf", 128);
     textFont(this.font);

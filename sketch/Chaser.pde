@@ -19,9 +19,24 @@ class Chaser {
         this.xPos = xPos;
         this.yPos = yPos;
         this.userPos = userPos;
-        this.chaserImage = this.parent.loadImage("data/Images/ronny.png");
+        
+        //get a random path for images to cycle through
+        String[] imagePaths = {
+            "data/Images/ronny.png",
+            "data/Images/sai.png",
+            "data/Images/sarah.png",
+            "data/Images/yair.png"
+        };
+        
+        int randomIndex = parent.floor(parent.random(imagePaths.length));
+        String randomImagePath = imagePaths[randomIndex];
+        
+        
+        this.chaserImage = this.parent.loadImage(randomImagePath);
         this.chaserImage.resize(chaserSize, chaserSize);
     }
+    
+    
     
     void speedChange(int level){
         this.difficulty = level;
@@ -92,6 +107,11 @@ class Chaser {
         //println(userPos[0]);
         //println(userPos[1]);
         //println(speed);
+        print("X;  ");
+        println(move[1]);
+        
+        print("Y;  ");
+        println(move[0]); 
         speedChange(this.difficulty);
         
         // Calculate the distance between chaser and user in x and y axes

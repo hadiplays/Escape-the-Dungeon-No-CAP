@@ -11,6 +11,7 @@ class User {
     int numKeys; // Number of keys user has
     boolean openDoor; // If numKeys = a certain number, this changes to true
     PImage sprite;
+    int userSize = 100; //50
 
     // Constructor
     User() {
@@ -22,7 +23,7 @@ class User {
     }
     
     void drawUser() {
-      image(sprite, xPos, yPos, 50, 50);
+      image(sprite, xPos, yPos, userSize, userSize);
     }
     
     float[] getPosition() {

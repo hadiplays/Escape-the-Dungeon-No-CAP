@@ -59,13 +59,13 @@ class Chaser {
         
     //    //println(angle);
         
-    //    // Calculate the movement in x and y directions
-    //    float moveX = this.speed * cos(angle);
-    //    float moveY = this.speed * sin(angle);
-    //    println("SPEEEDDDDD");
-    //    println(difficulty);
-    //    println(speed);
-    //    //println(moveY);
+    // Calculate the movement in x and y directions
+    float moveX = this.speed * cos(angle);
+    float moveY = this.speed * sin(angle);
+    //println("SPEEEDDDDD");
+    //println(difficulty);
+    //println(speed);
+    //println(moveY);
         
     //    // Update chaser's position
     //    this.xPos += moveX;
@@ -105,9 +105,9 @@ class Chaser {
         // Calculate the movement in x and y directions
         float moveX = this.speed * cos(angle);
         float moveY = this.speed * sin(angle);
-        println("SPEEEDDDDD");
-        println(difficulty);
-        println(speed);
+        //println("SPEEEDDDDD");
+        //println(difficulty);
+        //println(speed);
         //println(moveY);
         
         // Update chaser's position

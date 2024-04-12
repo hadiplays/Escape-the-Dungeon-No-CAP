@@ -72,63 +72,45 @@ class Game {
         }
         else{
           this.difficulty = modeMenu.mode;
-          println("MODEEEE");
-          println(modeMenu.mode);
+          //println("Mode: ", modeMenu.mode);
           chaser.speedChange(modeMenu.mode);
           startGame();
         }
     }
 
-    //void modeDifficultyAssignment() {
-    //    // Implementation
-    //    if (modeMenu.mode != 0) {
-    //      this.difficulty = modeMenu.mode;
-    //      println("MODEEEE");
-    //      println(modeMenu.mode);
-    //      chaser.speedChange(modeMenu.mode);
-    //      startGame();
-    //    }
-    //    else{
-    //      println("MODEEEE 2");
-    //      println(modeMenu.mode);
-    //      this.difficulty = modeMenu.mode; //setting the difficulty
-    //    }
-    //}
-    
     void startGame() {
       // TODO: Start game logic (draw user, chasers, map)
-        //map.drawMap();
-        //user.drawUser();
-        ////userPosition = user.getPosition();
-        //userPosition = new float[]{user.xPos, user.yPos};
-        //chaser.chaseUser(userPosition);
-        //chaser.drawChaser();
-        //println("GAME LOOP STARTED");
-        //gameOver();
-        
         map.drawMap();
         user.drawUser();
-        //userPosition = user.getPosition();
-        userPosition = user.moveNew();
+        
+        // Need to update this user position
+        userPosition = user.position;
         chaser.chaseUserNEW(userPosition); 
         chaser.drawChaser();
-        map.getUserPos(userPosition);
-        println("GAME LOOP STARTED");
-        gameOver();
+        map.moveMap(userPosition);
+        checkGameOver();
     }
 
     void startQuit() {
         // Implementation
     }
     
-    void gameOver() {
+    void checkGameOver() {
       float[] userPosArr = user.getPosition();
       float[] chaserPosArr = chaser.getPosition();
       
       float distance = sqrt(pow((chaserPosArr[0] - userPosArr[0]), 2) + pow((chaserPosArr[1] - userPosArr[1]), 2));
-      
+      println(distance);
       if (distance <= 50) difficulty = -1; //gameOver
     }
     
     int getDifficulty () {return this.difficulty;}
+    
+    void keyPressed() {
+        user.keyPressed();
+    }
+
+    void keyReleased() {
+        user.keyReleased();
+    }
 }

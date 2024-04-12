@@ -21,3 +21,11 @@ void draw() {
   //modeMenu.display();
   game.drawMenuInterface();
 }
+
+void keyPressed() {
+  game.keyPressed();
+}
+
+void keyReleased() {
+  game.keyReleased();
+}

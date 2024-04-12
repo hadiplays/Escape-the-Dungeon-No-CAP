@@ -110,7 +110,7 @@ class Map {
       }
     }
     
-    void getUserPos(float[] userPos) {
+    void moveMap(float[] userPos) {
       this.userPos[0] += userPos[0];
       this.userPos[1] += userPos[1];
     }

@@ -9,7 +9,7 @@ class Game {
     User user; // User instance
     MainMenu mainMenu; // Main Menu
     ModeMenu modeMenu; // Mode Menu
-    float[] userPosition; // Two sized array with the x and y position of the user
+    float[] userPosition; // Two sized array with the x and y t
     Chaser chaser; // Chaser instance
     Map map; // Map instance
     GameOverMenu gameOverMenu; // Game Over Menu
@@ -17,14 +17,14 @@ class Game {
     
     // Game constructor
     Game() {
-      this.user = new User();
+      this.map = new Map();
+      this.user = new User(map);
       this.mainMenu = new MainMenu("Escape the Dungeon");
       this.modeMenu = new ModeMenu("Select A Mode");
       // Initialize userPosition after setup
       // xPos = width/2 and yPos = height/2 at the start
       this.userPosition = new float[]{user.xPos, user.yPos};
       this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
-      this.map = new Map();
       this.gameOverMenu = new GameOverMenu("Game Over!");
       this.restart = false;
       this.difficulty = 0;
@@ -34,7 +34,7 @@ class Game {
         // Implementation
         
         if (restart) { // Sets default values to all variables
-          this.user = new User();
+          this.user = new User(map);
           this.mainMenu = new MainMenu("Escape the Dungeon");
           this.modeMenu = new ModeMenu("Select A Mode");
           // Initialize userPosition after setup
@@ -84,11 +84,11 @@ class Game {
         user.drawUser();
         
         // Need to update this user position
-        userPosition = user.position;
+        userPosition = user.translate;
         chaser.chaseUserNEW(userPosition); 
         
         chaser.drawChaser();
-        map.moveMap(userPosition);
+        map.updateMapPositions(userPosition);
         checkGameOver();
     }
 
@@ -101,7 +101,7 @@ class Game {
       float[] chaserPosArr = chaser.getPosition();
       
       float distance = sqrt(pow((chaserPosArr[0] - userPosArr[0]), 2) + pow((chaserPosArr[1] - userPosArr[1]), 2));
-      println(distance);
+      //println(distance);
       if (distance <= 100) difficulty = -1; //gameOver
     }
     

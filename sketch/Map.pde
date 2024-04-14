@@ -8,19 +8,19 @@ class Map {
     float[] flashlightPositions; // Position of each flashlight on the map; a float array containing pairs, each having an x and y position 
     int numKeys; // Number of keys user has
     boolean openDoor; // If numKeys = a certain number, this changes to true
-    float[][] keyPos; // Position of each key on the map; a float array containing pairs, each having an x and y position 
     int difficulty; // Map difficulty; used to alter other variables
     int mapDesign; // Design of the map depending on which level the user is at
-    float[] userPos = {0, 0}; // Used to create map moving illusion
+    float[] userPos = {0, 0}; // Used to create map moving illusion, {x, y}
     
     // Use this map border to see how the game plays
     int coordinateOne = 500;
     int coordinateTwo = 1500;
     
-    int[][] obstacles = new int[25][2];
+    // Map objects
+    int[][] obstacles = new int[25][2]; // obstacles[i][0] for xPos and obstacles[i][1] for yPos, width and height are 200 and 250
+    float[][] keyPos; // Position of each key on the map; a float array containing pairs, each having an x and y position 
     int keyWidth = 50; // Width of the key rectangle
     int keyHeight = 50; // Height of the key rectangle
-    
     float[][] flashlightPos = new float[2][2]; // Position of each flashlight on the map; a float array containing pairs, each having an x and y position 
     int flashlightWidth = 50; // Width of the flashlight rectangle
     int flashlightHeight = 50; // Height of the flashlight rectangle
@@ -130,8 +130,6 @@ class Map {
     }
   }
 
-
-
     // Constructor..........NOT BEING USED CURRENTLY; SHOULD BE USED THOUGH
     //Map(int flashlight, float[] flashlightPositions, int numKeys, boolean openDoor, float[][] keyPos, int difficulty, int mapDesign) {
     //    this.flashlight = flashlight;
@@ -149,45 +147,53 @@ class Map {
     //}
     
     void drawMap(){
-      
       if(mapDesign == 1){
         push();
         background(0);
         fill(255);
         rectMode(CORNER);
         noStroke();
-        rect(-coordinateOne + userPos[1],-coordinateOne + userPos[0],2000,100);
-        rect(-coordinateOne + userPos[1],-coordinateOne + userPos[0],100,2000);
-        rect(coordinateTwo + userPos[1],-coordinateOne + userPos[0],100,2100);
-        rect(-coordinateOne + userPos[1],coordinateTwo + userPos[0],2000,100);
+        rect(-coordinateOne, -coordinateOne, 2000, 100);
+        rect(-coordinateOne, -coordinateOne, 100, 2000);
+        rect(coordinateTwo, -coordinateOne, 100, 2100);
+        rect(-coordinateOne, coordinateTwo, 2000, 100);
         
         for (int i = 0; i < obstacles.length; i++) {
-          rect(obstacles[i][0] + userPos[1], obstacles[i][1] + userPos[0], 200, 250);
+          rect(obstacles[i][0], obstacles[i][1], 200, 250);
         }
         
         fill(255,255,0);
         for (int i = 0; i < keyPos.length; i++) {
-            image(keyImage, keyPos[i][0] + userPos[1], keyPos[i][1] + userPos[0], keyWidth, keyHeight);
+            image(keyImage, keyPos[i][0], keyPos[i][1], keyWidth, keyHeight);
         }
         
         // Change the fill color to red for flashlights
         fill(255, 0, 0); // Red color
         //for (int i = 0; i < flashlightPos.length; i++) {
-        //    image(flashlightImage, flashlightPos[i][0] + userPos[1], flashlightPos[i][1] + userPos[0], flashlightWidth, flashlightHeight);
+        //    image(flashlightImage, flashlightPos[i][0] + userPos[0], flashlightPos[i][1] + userPos[1], flashlightWidth, flashlightHeight);
         //}
         
         removeFlashlight();
         removeKey();
         
-        
-        
         pop();
       }
     }
     
-    void moveMap(float[] userPos) {
-      this.userPos[0] += userPos[0];
-      this.userPos[1] += userPos[1];
+    void updateMapPositions(float[] userPos) {
+      // update obstacles, keys, and flashlights
+      for (int i = 0; i < obstacles.length; i ++) {
+        obstacles[i][0] += userPos[0];
+        obstacles[i][1] += userPos[1];
+      }
+      for (int i = 0; i < keyPos.length; i ++) {
+        keyPos[i][0] += userPos[0];
+        keyPos[i][1] += userPos[1];
+      }
+      for (int i = 0; i < flashlightPos.length; i ++) {
+        flashlightPos[i][0] += userPos[0];
+        flashlightPos[i][1] += userPos[1];
+      }
     }
     
     int[][] getObstacles(){return this.obstacles;}
@@ -199,8 +205,8 @@ class Map {
       
       for (int i = 0; i < flashlightPos.length; i++) {
             // Update flashlight position
-            float flashlightX = flashlightPos[i][0] + userPos[1];
-            float flashlightY = flashlightPos[i][1] + userPos[0];
+            float flashlightX = flashlightPos[i][0] + userPos[0];
+            float flashlightY = flashlightPos[i][1] + userPos[1];
       
             // Check if flashlight is in the middle of the screen
             float centerX = width / 2;
@@ -221,8 +227,8 @@ class Map {
     
       for (int i = 0; i < keyPos.length; i++) {
         // Update key position
-        float keyX = keyPos[i][0] + userPos[1];
-        float keyY = keyPos[i][1] + userPos[0];
+        float keyX = keyPos[i][0] + userPos[0];
+        float keyY = keyPos[i][1] + userPos[1];
     
         // Check if key is in the middle of the screen
         float centerX = width / 2;

@@ -1,21 +1,26 @@
 import java.util.ArrayList;
 
 class User {
-    float[] position; // How much sprite has been translated from original center, helps determine map translation
+    float[] translate; // [x][y] How much sprite has been translated from original center, helps determine map translation
+    int [] pseudoPosition;
+    float xPos; // original X position
+    float yPos; // original Y position
     float speed; // How fast pos is changed
     int difficulty; // Saves game difficulty to change user variables respectively
-    float xPos; // X position
-    float yPos; // Y position
     int flashlight; // How many flashlights a user aquired; this changes the fieldOfView value as flashlight var increases
     int fieldOfView; // User FOV; changes depending on # of flashlight the user has gotten
     int numKeys; // Number of keys user has
     boolean openDoor; // If numKeys = a certain number, this changes to true
     PImage sprite;
     int userSize = 100; //50
+    
+    Map map;
 
     // Constructor
-    User() {
-      this.position = new float[2];
+    User(Map map) {
+      this.map = map;
+      this.translate = new float[2];
+      this.pseudoPosition = new int[]{ width/2, height/2 };
       this.xPos = width/2;
       this.yPos = height/2;
       this.speed = 10;
@@ -45,48 +50,72 @@ class User {
 //    }
     
     void keyPressed() {
-      if (keyCode == RIGHT) {
-        position[1] = -1 * speed;
+      // && checkNoObstacle(RIGHT)
+      if (keyCode == RIGHT && checkNoObstacle(RIGHT)) {
+        // check won't collide
+        translate[0] = -1 * speed;
+        pseudoPosition[0] += speed;
       }
-      if (keyCode == LEFT) {
-        position[1] = speed;
+      if (keyCode == LEFT && checkNoObstacle(LEFT)) {
+        // check won't collide
+        translate[0] = speed;
+        pseudoPosition[0] -= speed;
       }
-      if (keyCode == UP) {
-        position[0] = speed;
+      if (keyCode == UP && checkNoObstacle(UP)) {
+        // check won't collide
+        translate[1] = speed;
+        pseudoPosition[1] -= speed;
       }
-      if (keyCode == DOWN) {
-        position[0] = -1 * speed;
+      if (keyCode == DOWN && checkNoObstacle(UP)) {
+        // check won't collide
+        translate[1] = -1 * speed;
+        pseudoPosition[1] += speed;
       }
+      //println(xPos, yPos);
     }
     
     void keyReleased() {
-      if (keyCode == RIGHT) {
-        position[1] = 0;
+      if (keyCode == RIGHT) {        
+        translate[0] = 0;
       }
       if (keyCode == LEFT) {
-        position[1] = 0;
+        translate[0] = 0;
       }
       if (keyCode == UP) {
-        position[0] = 0;
+        translate[1] = 0;
       }
       if (keyCode == DOWN) {
-        position[0] = 0;
+        translate[1] = 0;
       }
     }
     
-    //boolean checkForObstacle(int direction) {
-    //  if (keyCode == RIGHT) {
-          
-    //  }
-    //  if (keyCode == LEFT) {
-        
-    //  }
-    //  if (keyCode == UP) {
-        
-    //  }
-    //  if (keyCode == DOWN) {
-        
-    //  }
-    //  return false;
-    //}
+    boolean checkNoObstacle(int direction) {
+      // Calculate the hypothetical next position based on the direction
+      int nextX = pseudoPosition[0];
+      int nextY = pseudoPosition[1];
+      
+      if (direction == RIGHT) {
+        nextX += speed;
+      } else if (direction == LEFT) {
+        nextX -= speed;
+      } else if (direction == UP) {
+        nextY -= speed;
+      } else if (direction == DOWN) {
+        nextY += speed;
+      }
+  
+      // Check if the hypothetical position collides with any obstacles
+      for (int i = 0; i < map.obstacles.length; i++) {
+        if (checkCollision(nextX, nextY, userSize, userSize, map.obstacles[i][0], map.obstacles[i][1], 200, 250)) {
+          return false; // Collision detected
+        }
+      }
+      return true; // No collision detected
+    }
+    
+    boolean checkCollision(int r1x, int r1y, int r1w, int r1h, int r2x, int r2y, int r2w, int r2h) {
+      return (
+        r1x + r1w >= r2x && r1x <= r2x + r2w && r1y + r1h >= r2y && r1y <= r2y + r2h
+      );
+    }
 }

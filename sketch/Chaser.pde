@@ -31,12 +31,9 @@ class Chaser {
         int randomIndex = parent.floor(parent.random(imagePaths.length));
         String randomImagePath = imagePaths[randomIndex];
         
-        
         this.chaserImage = this.parent.loadImage(randomImagePath);
         this.chaserImage.resize(chaserSize, chaserSize);
     }
-    
-    
     
     void speedChange(int level){
         this.difficulty = level;
@@ -57,39 +54,6 @@ class Chaser {
     void drawChaser(){
          parent.image(chaserImage, xPos, yPos);
     }
-    
-    
-    //void chaseUser(float[] userPos) {
-    //    //println("User Position");
-    //    //println(userPos[0]);
-    //    //println(userPos[1]);
-    //    //println(speed);
-    //    speedChange(this.difficulty);
-        
-    //    // Calculate the distance between chaser and user in x and y axes
-    //    float distX = userPos[0] - xPos;
-    //    float distY = userPos[1] - yPos;
-        
-    //    // Calculate the angle between chaser and user
-    //    float angle = atan2(distY, distX);
-        
-    //    //println(angle);
-        
-    // Calculate the movement in x and y directions
-    //float moveX = this.speed * cos(angle);
-    //float moveY = this.speed * sin(angle);
-    //println("SPEEEDDDDD");
-    //println(difficulty);
-    //println(speed);
-    //println(moveY);
-        
-    //    // Update chaser's position
-    //    this.xPos += moveX;
-    //    this.yPos += moveY;
-        
-    //    // Print the new position (you can remove this print statement if not needed)
-    //    //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");
-    //}
 
     float[] getPosition() {
       float[] position = new float[2]; // Initialize a float array of size 2
@@ -103,15 +67,6 @@ class Chaser {
     // This function is similar to the chaseUser() function except
     // it moves the chaser's position based on the user.
     void chaseUserNEW(float[] move) {
-        //println("User Position");
-        //println(userPos[0]);
-        //println(userPos[1]);
-        //println(speed);
-        print("X;  ");
-        println(move[1]);
-        
-        print("Y;  ");
-        println(move[0]); 
         speedChange(this.difficulty);
         
         // Calculate the distance between chaser and user in x and y axes
@@ -126,14 +81,10 @@ class Chaser {
         // Calculate the movement in x and y directions
         float moveX = this.speed * cos(angle);
         float moveY = this.speed * sin(angle);
-        //println("SPEEEDDDDD");
-        //println(difficulty);
-        //println(speed);
-        //println(moveY);
         
         // Update chaser's position
-        this.xPos += moveX + move[1];
-        this.yPos += moveY + move[0];
+        this.xPos += moveX + move[0];
+        this.yPos += moveY + move[1];
         
         // Print the new position (you can remove this print statement if not needed)
         //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");

@@ -19,7 +19,8 @@ class Game {
     Game() {
       this.user = new User();
       this.map = new Map(user);
-      //this.user = new User(map);
+      //this.user = new User();
+      //this.map = new Map(user);
       this.mainMenu = new MainMenu("Escape the Dungeon");
       this.modeMenu = new ModeMenu("Select A Mode");
       // Initialize userPosition after setup
@@ -35,7 +36,7 @@ class Game {
         // Implementation
         
         if (restart) { // Sets default values to all variables
-          this.user = new User();
+          this.user = new User(map);
           this.mainMenu = new MainMenu("Escape the Dungeon");
           this.modeMenu = new ModeMenu("Select A Mode");
           // Initialize userPosition after setup
@@ -111,6 +112,7 @@ class Game {
     
     void keyPressed() {
         user.keyPressed();
+        print(keyCode);
     }
 
     void keyReleased() {

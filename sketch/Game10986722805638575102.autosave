@@ -5,33 +5,29 @@ class Game {
     float[] speedChaser; // Saves different speeds for the chaser depending on the difficulty;
     float[] FOVSet; // Saves different FOV for user based on difficulty
     Map[] mapLevels; // Different maps for each level
-    Map map; // Map instance
     ArrayList<Chaser> chasers; // Different chasers saved in array
     User user; // User instance
     MainMenu mainMenu; // Main Menu
     ModeMenu modeMenu; // Mode Menu
-    float[] userPosition; // Two sized array with the x and y t
+    float[] userPosition; // Two sized array with the x and y position of the user
     Chaser chaser; // Chaser instance
+    Map map; // Map instance
     GameOverMenu gameOverMenu; // Game Over Menu
-    WinMenu winMenu;
     boolean restart; // Variable to restart game
     
     // Game constructor
     Game() {
       this.user = new User();
-      this.map = new Map(user);
-      //this.user = new User(map);
       this.mainMenu = new MainMenu("Escape the Dungeon");
       this.modeMenu = new ModeMenu("Select A Mode");
       // Initialize userPosition after setup
       // xPos = width/2 and yPos = height/2 at the start
       this.userPosition = new float[]{user.xPos, user.yPos};
-      this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition, map); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
+      this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
+      this.map = new Map();
       this.gameOverMenu = new GameOverMenu("Game Over!");
-      this.winMenu = new WinMenu("YOU WON!");
       this.restart = false;
       this.difficulty = 0;
-      
     }
 
     void drawMenuInterface() {
@@ -44,10 +40,9 @@ class Game {
           // Initialize userPosition after setup
           // xPos = width/2 and yPos = height/2 at the start
           this.userPosition = new float[]{user.xPos, user.yPos};
-          this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition, map); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
-          this.map = new Map(user);
+          this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
+          this.map = new Map();
           this.gameOverMenu = new GameOverMenu("Game Over!");
-          this.winMenu = new WinMenu("YOU WON!");
           this.restart = false;
           this.difficulty = 0;
         }
@@ -73,13 +68,13 @@ class Game {
         else if (this.difficulty == -1) {
           gameOverMenu.display();
           restart = gameOverMenu.handleMouseClick();
+
         }
         else{
           this.difficulty = modeMenu.mode;
           //println("Mode: ", modeMenu.mode);
           chaser.speedChange(modeMenu.mode);
           startGame();
-          checkWon();
         }
     }
 
@@ -89,12 +84,20 @@ class Game {
         user.drawUser();
         
         // Need to update this user position
-        userPosition = user.translate;
+        userPosition = user.position;
         chaser.chaseUserNEW(userPosition); 
         
         chaser.drawChaser();
-        map.updateMapPositions(userPosition);
+        map.moveMap(userPosition);
         checkGameOver();
+        drawFOV();
+    }
+    
+    void drawFOV() {
+        if (map.flashlight == 2){
+            fill(0);
+            rect(0,0, width, height);
+        }
     }
 
     void startQuit() {
@@ -106,15 +109,8 @@ class Game {
       float[] chaserPosArr = chaser.getPosition();
       
       float distance = sqrt(pow((chaserPosArr[0] - userPosArr[0]), 2) + pow((chaserPosArr[1] - userPosArr[1]), 2));
-      //println(distance);
+      println(distance);
       if (distance <= 100) difficulty = -1; //gameOver
-    }
-    
-    void checkWon(){
-       if (map.numKeys >= 3){
-          winMenu.display();
-          restart = winMenu.handleMouseClick();
-       }
     }
     
     

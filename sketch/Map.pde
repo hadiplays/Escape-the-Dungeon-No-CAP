@@ -42,6 +42,7 @@ class Map {
         this.user = user;
         mapDesign = 1;
         initializeObstacles();
+        numKeys = 0;
 
         // Initialize the array
         this.keyPos = new float[3][2];
@@ -367,6 +368,11 @@ class Map {
           tempPos.add(new float[]{keyPos[i][0], keyPos[i][1]});
           // Draw the key
           image(keyImage, keyX, keyY, keyWidth, keyHeight);
+        }
+        else{
+          numKeys += 1;
+          print("KEY NUMBEEERRR: ");
+          println(numKeys);
         }
       }
     

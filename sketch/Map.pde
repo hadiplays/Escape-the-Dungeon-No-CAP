@@ -29,7 +29,7 @@ class Map {
     PImage keyImage;
     PImage flashlightImage;
     
-    boolean isColliding = false;
+    boolean isColliding = false; // for chaser to know when there's a collision and prevent speed increase on keypress
 
     Map(User user) {
         this.user = user;
@@ -184,7 +184,7 @@ class Map {
     }
     
     void updateMapPositions(float[] userPos) {
-        if (checkNoObstacle(userPos)){
+      if (checkNoObstacle(userPos)) {
         // update obstacles, keys, and flashlights
         for (int i = 0; i < obstacles.length; i++) {
           //println("(", width/2, height/2, ") : ", "(", width/2+100, height/2+100, ") : ", "(", obstacles[i][0], obstacles[i][1], ")", "(", obstacles[i][0] + 200, obstacles[i][1]+250, ")");
@@ -200,6 +200,22 @@ class Map {
           flashlightPos[i][1] += userPos[1];
         }
       }
+      //else {
+      //  // update obstacles, keys, and flashlights
+      //  for (int i = 0; i < obstacles.length; i++) {
+      //    //println("(", width/2, height/2, ") : ", "(", width/2+100, height/2+100, ") : ", "(", obstacles[i][0], obstacles[i][1], ")", "(", obstacles[i][0] + 200, obstacles[i][1]+250, ")");
+      //    obstacles[i][0] -= userPos[0]*3;
+      //    obstacles[i][1] -= userPos[1]*3;
+      //  }
+      //  for (int i = 0; i < keyPos.length; i ++) {
+      //    keyPos[i][0] -= userPos[0]*3;
+      //    keyPos[i][1] -= userPos[1]*3;
+      //  }
+      //  for (int i = 0; i < flashlightPos.length; i ++) {
+      //    flashlightPos[i][0] -= userPos[0]*3;
+      //    flashlightPos[i][1] -= userPos[1]*3;
+      //  }
+      //}
     }
     
     boolean checkNoObstacle(float[] userPos) {

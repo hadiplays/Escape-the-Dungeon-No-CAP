@@ -28,6 +28,8 @@ class Map {
     
     PImage keyImage;
     PImage flashlightImage;
+    
+    boolean isColliding = false;
 
     Map(User user) {
         this.user = user;
@@ -93,7 +95,7 @@ class Map {
           do {
               randomX = (int) random(-coordinateOne + 50, coordinateTwo - 100);
               randomY = (int) random(-coordinateOne + 50, coordinateTwo - 100);
-          } while (!(randomX < 350 || randomX > 650) || !(randomY < 350 || randomY > 650));
+          } while (!(randomX+200 < width/2-50 || randomX > width/2 + user.userSize+50) && !(randomY+250 < height/2 || randomY > height/2 + user.userSize+50));
           obstacles[i][0] = randomX;
           obstacles[i][1] = randomY;
       }
@@ -182,9 +184,10 @@ class Map {
     }
     
     void updateMapPositions(float[] userPos) {
-        if (checkNoObstacle()){
+        if (checkNoObstacle(userPos)){
         // update obstacles, keys, and flashlights
-        for (int i = 0; i < obstacles.length; i ++) {
+        for (int i = 0; i < obstacles.length; i++) {
+          //println("(", width/2, height/2, ") : ", "(", width/2+100, height/2+100, ") : ", "(", obstacles[i][0], obstacles[i][1], ")", "(", obstacles[i][0] + 200, obstacles[i][1]+250, ")");
           obstacles[i][0] += userPos[0];
           obstacles[i][1] += userPos[1];
         }
@@ -199,27 +202,35 @@ class Map {
       }
     }
     
-    boolean checkNoObstacle() {
+    boolean checkNoObstacle(float[] userPos) {
       // Check if the hypothetical position collides with any obstacles
       for (int i = 0; i < obstacles.length; i++) {
         // Calculate the hypothetical next position based on the direction
         int nextX = obstacles[i][0];
         int nextY = obstacles[i][1];
         //println(keyCode);
+        //println(userPos[0], userPos[1]);
         if (keyCode == RIGHT) {
           nextX += userPos[0];
-        } else if (keyCode == LEFT) {
+        }
+        if (keyCode == LEFT) {
           nextX += userPos[0];
-        } else if (keyCode == UP) {
-          nextY += userPos[1];
-        } else if (keyCode == DOWN) {
+        }
+        if (keyCode == UP) {
           nextY += userPos[1];
         }
-        if (checkCollision(user.pseudoPos[0], user.pseudoPos[1], user.userSize, user.userSize, nextX, nextY, 200, 250)) {
-          println(user.pseudoPos[0], user.pseudoPos[0], nextX, nextY);
+        if (keyCode == DOWN) {
+          nextY += userPos[1];
+        }
+        if (checkCollision(width/2, height/2, user.userSize, user.userSize, nextX, nextY, 200, 250)) {
+          //println("collision detectied@@|!!");
+          isColliding = true;
+          //println("(", width/2, height/2, ") : ", "(", width/2+100, height/2+100, ") : ", "(", nextX, nextY, ")", "(", nextX+200, nextY+250, ")");
           return false; // Collision detected
         }
+        //println("(", width/2, height/2, ") : ", "(", width/2+100, height/2+100, ") : ", "(", nextX, nextY, ")", "(", nextX+200, nextY+250, ")");
       }
+      isColliding = false;
       return true; // No collision detected
     }
     
@@ -228,6 +239,16 @@ class Map {
         r1x + r1w >= r2x && r1x <= r2x + r2w && r1y + r1h >= r2y && r1y <= r2y + r2h
       );
     }
+    
+    //boolean checkCollision2(int rx1, int rx2, int ry1, int ry2) {
+    //  // center square where user is: (width/2 to width/2 + userSize, height/2 to height/2 + userSize)
+    //  // obstacle dimensions: (obstacle[i][0] to obstacle[i][0] + 200, obstacle[i][1] to obstacle[i][1] + 250)
+    //  // or can return if any portion of obstacle pos crosses (origin or rather width/2, height/2);
+    //  boolean hasCollided = (rx1 <= width/2) && (width/2 <= rx2) && (ry1 <= height/2) && (height/2 <= ry2);
+    //  println("has collided:", !hasCollided);
+    //  println(rx1, rx2, ":", ry1, ry2);
+    //  return hasCollided;
+    //}
     
     int[][] getObstacles(){return this.obstacles;}
     

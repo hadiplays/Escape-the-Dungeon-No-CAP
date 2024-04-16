@@ -5,13 +5,13 @@ class Game {
     float[] speedChaser; // Saves different speeds for the chaser depending on the difficulty;
     float[] FOVSet; // Saves different FOV for user based on difficulty
     Map[] mapLevels; // Different maps for each level
+    Map map; // Map instance
     ArrayList<Chaser> chasers; // Different chasers saved in array
     User user; // User instance
     MainMenu mainMenu; // Main Menu
     ModeMenu modeMenu; // Mode Menu
     float[] userPosition; // Two sized array with the x and y t
     Chaser chaser; // Chaser instance
-    Map map; // Map instance
     GameOverMenu gameOverMenu; // Game Over Menu
     boolean restart; // Variable to restart game
     
@@ -25,7 +25,7 @@ class Game {
       // Initialize userPosition after setup
       // xPos = width/2 and yPos = height/2 at the start
       this.userPosition = new float[]{user.xPos, user.yPos};
-      this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
+      this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition, map); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
       this.gameOverMenu = new GameOverMenu("Game Over!");
       this.restart = false;
       this.difficulty = 0;
@@ -41,7 +41,7 @@ class Game {
           // Initialize userPosition after setup
           // xPos = width/2 and yPos = height/2 at the start
           this.userPosition = new float[]{user.xPos, user.yPos};
-          this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
+          this.chaser = new Chaser(modeMenu.mode, 10, 10, userPosition, map); // Chaser(int difficulty, float xPos, float yPos, float[] userPos)
           this.map = new Map(user);
           this.gameOverMenu = new GameOverMenu("Game Over!");
           this.restart = false;

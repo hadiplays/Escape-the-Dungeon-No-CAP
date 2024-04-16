@@ -11,14 +11,16 @@ class Chaser {
     PApplet parent = Sketch.this; // Reference to the main PApplet instance
     PImage chaserImage; // Image for the chaser
     int chaserSize = 100; //50
+    Map map;
 
     // Constructor
-    Chaser(int difficulty, float xPos, float yPos, float[] userPos) {
+    Chaser(int difficulty, float xPos, float yPos, float[] userPos, Map map) {
         this.speed = 1;
         this.difficulty = difficulty;
         this.xPos = xPos;
         this.yPos = yPos;
         this.userPos = userPos;
+        this.map = map;
         
         //get a random path for images to cycle through
         String[] imagePaths = {
@@ -83,8 +85,14 @@ class Chaser {
         float moveY = this.speed * sin(angle);
         
         // Update chaser's position
-        this.xPos += moveX + move[0];
-        this.yPos += moveY + move[1];
+        if (!map.isColliding) {
+          this.xPos += moveX + move[0];
+          this.yPos += moveY + move[1];
+        }
+        else {
+          this.xPos += moveX;
+          this.yPos += moveY;
+        }
         
         // Print the new position (you can remove this print statement if not needed)
         //System.out.println("Chaser's new position: (" + xPos + ", " + yPos + ")");

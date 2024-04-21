@@ -106,7 +106,7 @@ class Game {
       float[] chaserPosArr = chaser.getPosition();
       
       float distance = sqrt(pow((chaserPosArr[0] - userPosArr[0]), 2) + pow((chaserPosArr[1] - userPosArr[1]), 2));
-      if (distance <= 100) {
+      if (distance <= 100 && map.numKeys < 3) {
       gotSound.play();
       difficulty = -1;
       }//gameOver

@@ -17,13 +17,17 @@ class Map {
     int coordinateOne = 500;
     int coordinateTwo = 1500;
     
-    int[][] obstacles = new int[25][2];
+    int[][] obstacles = new int[15][2];
     int keyWidth = 50; // Width of the key rectangle
     int keyHeight = 50; // Height of the key rectangle
     
     float[][] flashlightPos = new float[2][2]; // Position of each flashlight on the map; a float array containing pairs, each having an x and y position 
     int flashlightWidth = 50; // Width of the flashlight rectangle
     int flashlightHeight = 50; // Height of the flashlight rectangle
+    
+    // Add arrays to store randomized sizes of obstacles
+    float[] obstacleWidths;
+    float[] obstacleHeights;
     
     PImage keyImage;
     PImage flashlightImage;
@@ -40,6 +44,17 @@ class Map {
 
         initializeKeys();
         initializeFlashlights();
+        obstacleWidths = new float[obstacles.length];
+        obstacleHeights = new float[obstacles.length];
+        initializeObstacleSizes();
+    }
+    
+    // Method to initialize randomized sizes of obstacles
+    void initializeObstacleSizes() {
+        for (int i = 0; i < obstacles.length; i++) {
+            obstacleWidths[i] = random(150, 300); // Randomize the width
+            obstacleHeights[i] = random(200, 350); // Randomize the height
+        }
     }
 
     boolean checkOverlap(float keyX, float keyY) {
@@ -85,14 +100,24 @@ class Map {
     return false; // No overlap detected
   }
 
-  
   void initializeObstacles() {
       for (int i = 0; i < obstacles.length; i++) {
           int randomX, randomY;
+          boolean overlap;
           do {
-              randomX = (int) random(-coordinateOne + 50, coordinateTwo - 100);
-              randomY = (int) random(-coordinateOne + 50, coordinateTwo - 100);
-          } while (!(randomX < 350 || randomX > 650) || !(randomY < 350 || randomY > 650));
+              overlap = false;
+              randomX = (int) random(-coordinateOne + 100, coordinateTwo - 150); // Adjusted range for X position
+              randomY = (int) random(-coordinateOne + 100, coordinateTwo - 150); // Adjusted range for Y position
+  
+              // Check for overlap with existing obstacles
+              for (int j = 0; j < i; j++) {
+                  if (Math.abs(randomX - obstacles[j][0]) < 300 && Math.abs(randomY - obstacles[j][1]) < 300) {
+                      overlap = true;
+                      break;
+                  }
+              }
+          } while (overlap); // Repeat until a non-overlapping position is found
+  
           obstacles[i][0] = randomX;
           obstacles[i][1] = randomY;
       }
@@ -163,7 +188,7 @@ class Map {
         rect(-coordinateOne + userPos[1],coordinateTwo + userPos[0],2000,100);
         
         for (int i = 0; i < obstacles.length; i++) {
-          rect(obstacles[i][0] + userPos[1], obstacles[i][1] + userPos[0], 200, 250);
+            rect(obstacles[i][0] + userPos[1], obstacles[i][1] + userPos[0], obstacleWidths[i], obstacleHeights[i]);
         }
         
         fill(255,255,0);

@@ -10,6 +10,7 @@ class Game {
     User user; // User instance
     MainMenu mainMenu; // Main Menu
     ModeMenu modeMenu; // Mode Menu
+    ManualMenu manualMenu; // Manual Menu
     float[] userPosition; // Two sized array with the x and y t
     Chaser chaser; // Chaser instance
     GameOverMenu gameOverMenu; // Game Over Menu
@@ -22,6 +23,7 @@ class Game {
       this.map = new Map(user);
       //this.user = new User(map);
       this.mainMenu = new MainMenu("Escape the Dungeon");
+      this.manualMenu = new ManualMenu("Manual");
       this.modeMenu = new ModeMenu("Select A Mode");
       // Initialize userPosition after setup
       // xPos = width/2 and yPos = height/2 at the start
@@ -40,6 +42,7 @@ class Game {
         if (restart) { // Sets default values to all variables
           this.user = new User();
           this.mainMenu = new MainMenu("Escape the Dungeon");
+          this.manualMenu = new ManualMenu("Manual");
           this.modeMenu = new ModeMenu("Select A Mode");
           // Initialize userPosition after setup
           // xPos = width/2 and yPos = height/2 at the start
@@ -64,6 +67,12 @@ class Game {
             modeMenu.display();
             this.difficulty = modeMenu.handleMouseClick();
             //modeDifficultyAssignment();
+          }
+          else if (mainMenu.showManual) {
+            manualMenu.display();
+            if (manualMenu.handleMouseClick()) {
+              mainMenu.showManual = false;
+            }
           }
           else { //stays in the mainMenu
             mainMenu.display();

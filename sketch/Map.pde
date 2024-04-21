@@ -17,7 +17,7 @@ class Map {
     int coordinateOne = 500;
     int coordinateTwo = 1500;
     
-    int[][] obstacles = new int[15][2];
+    int[][] obstacles = new int[18][2];
     int keyWidth = 50; // Width of the key rectangle
     int keyHeight = 50; // Height of the key rectangle
     
@@ -53,7 +53,7 @@ class Map {
     void initializeObstacleSizes() {
         for (int i = 0; i < obstacles.length; i++) {
             obstacleWidths[i] = random(150, 300); // Randomize the width
-            obstacleHeights[i] = random(200, 350); // Randomize the height
+            obstacleHeights[i] = random(150, 300); // Randomize the height
         }
     }
 
@@ -111,7 +111,7 @@ class Map {
   
               // Check for overlap with existing obstacles
               for (int j = 0; j < i; j++) {
-                  if (Math.abs(randomX - obstacles[j][0]) < 300 && Math.abs(randomY - obstacles[j][1]) < 300) {
+                  if (Math.abs(randomX - obstacles[j][0]) < 320 && Math.abs(randomY - obstacles[j][1]) < 320) {
                       overlap = true;
                       break;
                   }

@@ -54,10 +54,10 @@ class Map {
 
     boolean checkOverlap(float keyX, float keyY) {
       // Define key rectangle
-      float keyLeft = keyX - 10;
-      float keyRight = keyX + keyWidth + 10;
-      float keyTop = keyY - 10;
-      float keyBottom = keyY + keyHeight + 10;
+      float keyLeft = keyX;
+      float keyRight = keyX + keyWidth;
+      float keyTop = keyY;
+      float keyBottom = keyY + keyHeight;
       
       // Check against map borders
       if (keyLeft <= -coordinateOne || keyRight >= coordinateTwo || keyTop <= -coordinateOne || keyBottom >= coordinateTwo) {

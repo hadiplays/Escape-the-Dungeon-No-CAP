@@ -36,7 +36,7 @@ class Map {
     PImage keyImage;
     PImage flashlightImage;
     
-    boolean isColliding = false; // for chaser to know when there's a collision and prevent speed increase on keypress
+    boolean isColliding; // for chaser to know when there's a collision and prevent speed increase on keypress
 
     Map(User user) {
         this.user = user;
@@ -48,6 +48,7 @@ class Map {
         this.keyPos = new float[3][2];
         keyImage = loadImage("data/Images/key.png"); 
         flashlightImage = loadImage("data/Images/flashlight.png");
+        this.isColliding = false;
 
         initializeKeys();
     }
@@ -101,15 +102,6 @@ class Map {
   void initializeKeys() {
       for (int i = 0; i < this.keyPos.length; i++) {
         int keyX, keyY;
-          //do {
-          //    float keyX = random(-coordinateOne + 100, coordinateTwo - 100); // Adjusted to fit within map borders
-          //    float keyY = random(-coordinateOne + 100, coordinateTwo - 100); // Adjusted to fit within map borders
-          //    // Adjust key position to ensure it doesn't overlap with obstacles
-          //    if (!checkOverlap(keyX, keyY) && (keyX < 350 || keyX > 650) && (keyY < 350 || keyY > 650)) {
-          //        this.keyPos[i][0] = keyX;
-          //        this.keyPos[i][1] = keyY;
-          //    }
-          //} while (this.keyPos[i][0] == 0 && this.keyPos[i][1] == 0); // Ensure key position is set
           do {
               keyX = (int) random(-coordinateOne + user.userSize+50, coordinateTwo - user.userSize-50); // Adjusted to fit within map borders
               keyY = (int) random(-coordinateOne + user.userSize+50, coordinateTwo - user.userSize-50); // Adjusted to fit within map borders
